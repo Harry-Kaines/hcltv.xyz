@@ -1,0 +1,600 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Hurricane Collective - Experimental electronic music label">
+    <title>HCLTV Storm | Hurricane Collective</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --storm-accent: rgba(0, 120, 215, 0.8);
+            --text-glow: 0 0 8px rgba(100, 180, 255, 0.7);
+            --element-size: 60px;
+            --orbital-radius: 200px;
+        }
+
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+            font-family: 'Audiowide', sans-serif;
+            color: #fff;
+        }
+
+        /* Epilepsy Warning Page */
+        .warning-page {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: #000;
+            color: #fff;
+            font-family: 'Audiowide', sans-serif;
+        }
+
+            .warning-page h1 {
+                font-size: 2rem;
+                color: #ff4d4d;
+                margin-bottom: 1.25rem;
+                text-transform: uppercase;
+            }
+
+            .warning-page p {
+                max-width: 600px;
+                line-height: 1.5;
+                margin-bottom: 2rem;
+            }
+
+            .warning-page button {
+                background: #ff4d4d;
+                color: #000;
+                border: none;
+                padding: 0.75rem 1.875rem;
+                font-family: inherit;
+                font-size: 1rem;
+                cursor: pointer;
+                border-radius: 4px;
+                transition: background 0.3s;
+            }
+
+                .warning-page button:hover {
+                    background: #ff1a1a;
+                }
+
+        /* Main Website Content */
+        .website-content {
+            display: none;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        /* Branding */
+        .title {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.25rem;
+            z-index: 10;
+            font-family: 'UnifrakturMaguntia', cursive;
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-shadow: var(--text-glow);
+            pointer-events: none;
+            letter-spacing: 1px;
+        }
+
+        /* Background Elements */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(0.4) contrast(1.1);
+        }
+
+        /* Mobile-specific video rotation */
+        @media (max-width: 768px) {
+            #bg-video {
+                transform: rotate(90deg);
+                transform-origin: center center;
+                width: 100vh;
+                height: 100vw;
+                top: 50%;
+                left: 50%;
+                margin-top: -50vw;
+                margin-left: -50vh;
+            }
+        }
+
+        .storm {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(circle at var(--pos1-x, 50%) var(--pos1-y, 50%), rgba(255,255,255,0.02) 0%, transparent 60%), radial-gradient(circle at var(--pos2-x, 50%) var(--pos2-y, 50%), rgba(200,200,255,0.015) 20%, transparent 90%);
+            animation: warpBackground 30s linear infinite;
+            mix-blend-mode: screen;
+        }
+
+            .storm::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at var(--pos3-x, 30%) var(--pos3-y, 30%), rgba(255,255,255,0.02) 5%, transparent 80%), radial-gradient(circle at var(--pos4-x, 70%) var(--pos4-y, 70%), rgba(180,180,255,0.025) 10%, transparent 70%);
+                animation: warpBackgroundReverse 45s linear infinite;
+                mix-blend-mode: screen;
+            }
+
+        @keyframes warpBackground {
+            0% {
+                --pos1-x: 48%;
+                --pos1-y: 52%;
+                --pos2-x: 53%;
+                --pos2-y: 47%;
+            }
+
+            25% {
+                --pos1-x: 52%;
+                --pos1-y: 48%;
+                --pos2-x: 50%;
+                --pos2-y: 53%;
+            }
+
+            50% {
+                --pos1-x: 50%;
+                --pos1-y: 50%;
+                --pos2-x: 55%;
+                --pos2-y: 45%;
+            }
+
+            75% {
+                --pos1-x: 49%;
+                --pos1-y: 53%;
+                --pos2-x: 48%;
+                --pos2-y: 49%;
+            }
+
+            100% {
+                --pos1-x: 48%;
+                --pos1-y: 52%;
+                --pos2-x: 53%;
+                --pos2-y: 47%;
+            }
+        }
+
+        @keyframes warpBackgroundReverse {
+            0% {
+                --pos3-x: 28%;
+                --pos3-y: 32%;
+                --pos4-x: 68%;
+                --pos4-y: 72%;
+            }
+
+            25% {
+                --pos3-x: 32%;
+                --pos3-y: 28%;
+                --pos4-x: 70%;
+                --pos4-y: 68%;
+            }
+
+            50% {
+                --pos3-x: 30%;
+                --pos3-y: 30%;
+                --pos4-x: 73%;
+                --pos4-y: 67%;
+            }
+
+            75% {
+                --pos3-x: 27%;
+                --pos3-y: 31%;
+                --pos4-x: 66%;
+                --pos4-y: 70%;
+            }
+
+            100% {
+                --pos3-x: 28%;
+                --pos3-y: 32%;
+                --pos4-x: 68%;
+                --pos4-y: 72%;
+            }
+        }
+
+        /* Interactive Elements */
+        .elements {
+            position: fixed;
+            inset: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .element {
+            position: absolute;
+            width: var(--element-size);
+            height: var(--element-size);
+            border-radius: 20px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            box-shadow: 0 0 10px var(--storm-accent), 7px 7px 15px rgba(0, 0, 0, 0.5), -7px -7px 15px rgba(60, 60, 60, 0.3);
+            color: rgba(255, 255, 255, 0.9);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'UnifrakturMaguntia', cursive;
+            font-weight: 700;
+            font-size: 2.5rem;
+            user-select: none;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            text-shadow: var(--text-glow);
+        }
+
+            .element:hover {
+                background: linear-gradient(145deg, #333, #222);
+                box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5), inset -2px -2px 5px rgba(80, 80, 80, 0.3);
+            }
+
+            .element.active {
+                transform: translate(-50%, -50%) scale(1.9);
+                background: linear-gradient(145deg, #0a3d6b, #007acc);
+                box-shadow: 0 0 30px var(--storm-accent);
+                color: #fff;
+                z-index: 10;
+            }
+
+            .element.spin {
+                animation: stormSpin 0.8s cubic-bezier(0.4, 0, 0.2, 1) 2;
+                z-index: 100;
+            }
+
+        @keyframes stormSpin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Info Boxes */
+        .info-box {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%) perspective(500px) rotateX(2deg) rotateY(2deg) skew(-2deg, -1deg);
+            background: rgba(20, 20, 20, 0.95);
+            color: #eee;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            width: 220px;
+            font-family: 'Audiowide', sans-serif;
+            font-size: 0.9rem;
+            pointer-events: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            visibility: hidden;
+            filter: drop-shadow(0 0 5px var(--storm-accent));
+            animation: windDistortion 8s infinite alternate ease-in-out;
+            z-index: 20;
+        }
+
+        @keyframes windDistortion {
+            0% {
+                transform: translateX(-50%) perspective(500px) rotateX(2deg) rotateY(2deg) skew(-2deg, -1deg);
+            }
+
+            50% {
+                transform: translateX(-50%) perspective(500px) rotateX(-1deg) rotateY(3deg) skew(1deg, -2deg);
+            }
+
+            100% {
+                transform: translateX(-50%) perspective(500px) rotateX(2deg) rotateY(-1deg) skew(-3deg, 1deg);
+            }
+        }
+
+        .element.active .info-box {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .info-box a {
+            color: #4da6ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+            .info-box a:hover {
+                text-decoration: underline;
+            }
+
+        /* SoundCloud Player */
+        .soundcloud-player {
+            position: fixed;
+            bottom: 1.25rem;
+            left: 1.25rem;
+            z-index: 20;
+            width: 200px;
+            height: 52px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: opacity 0.3s;
+            opacity: 0.8;
+        }
+
+            .soundcloud-player:hover {
+                opacity: 1;
+            }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            :root {
+                --element-size: 50px;
+                --orbital-radius: 150px;
+            }
+
+            .info-box {
+                width: 180px;
+                font-size: 0.8rem;
+            }
+
+            .soundcloud-player {
+                width: 160px;
+                height: 42px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Epilepsy Warning Page -->
+    <div class="warning-page" id="warningPage">
+        <h1>⚠️ WARNING ⚠️</h1>
+        <p>
+            This website contains flashing lights, rapid animations, and intense visual effects that may trigger seizures for people with photosensitive epilepsy. Viewer discretion is advised.
+        </p>
+        <button id="enterButton">ENTER SITE</button>
+    </div>
+
+    <!-- Main Website -->
+    <div class="website-content" id="websiteContent">
+        <div class="title">Hurricane Collective</div>
+
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="Media/bgvideo.mp4" type="video/mp4" />
+        </video>
+
+        <div class="storm"></div>
+
+        <div class="elements">
+
+            <!-- Music -->
+            <div class="element" tabindex="0" data-content="music">
+                λ
+                <div class="info-box">
+                    Exclusive tracks, playlists, and behind-the-scenes music content from The Hurricane.
+                    <br><br><a href="https://www.youtube.com/@harrykaines666" target="_blank" rel="noopener noreferrer">Main YouTube</a>
+                    <br><a href="https://www.youtube.com/channel/UCF2970YtIdTxHQ3wt-qTjZA" target="_blank" rel="noopener noreferrer">Artist Channel</a>
+                </div>
+            </div>
+
+            <!-- Gaming -->
+            <div class="element" tabindex="0" data-content="gaming">
+                🜂
+                <div class="info-box">
+                    Let's play, build, and survive together in a world of chaos and creativity.
+                    <br><br><a href="https://www.youtube.com/@HurricaneGames-t8k" target="_blank" rel="noopener noreferrer">Hurricane Games YouTube</a>
+                    <br><a href="https://www.twitch.tv/yourtwitchhandle" target="_blank" rel="noopener noreferrer">Twitch Channel</a>
+                </div>
+            </div>
+
+            <!-- Links Hub -->
+            <div class="element" tabindex="0" data-content="links">
+                ᛗ
+                <div class="info-box">
+                    One link to find them all — projects, socials, and collaborations.
+                    <br><br><a href="https://allmylinks.com/harrykaines" target="_blank" rel="noopener noreferrer">Explore All My Links</a>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="element" tabindex="0" data-content="contact">
+                ᛉ
+                <div class="info-box">
+                    For bookings, collabs, or just to connect — reach out any time.
+                    <br><br>
+                    <a href="mailto:hurricaneccollective@gmail.com" style="display: block;">
+                        H-Collective Email
+                    </a>
+                </div>
+            </div>
+
+            <!-- Gratitude & Commitment -->
+            <div class="element" tabindex="0" data-content="gratitude">
+                ϕ
+                <div class="info-box">
+                    With deep thanks to <strong>Perth City Farm</strong> and <strong>St. Bartholomew's House</strong>
+                    for their support on this journey.
+                    <br><br>We are committed to giving back — supporting environmental sustainability
+                    and homelessness outreach through our work and donations.
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SoundCloud Player -->
+        <div class="soundcloud-player">
+            <iframe id="sc-widget" width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay"
+                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1834532425&color=%230078d7&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+            </iframe>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM Elements
+            const warningPage = document.getElementById('warningPage');
+            const enterButton = document.getElementById('enterButton');
+            const websiteContent = document.getElementById('websiteContent');
+            const bgVideo = document.getElementById('bg-video');
+            const elements = document.querySelectorAll('.element');
+
+            // Constants
+            const ELEMENT_COUNT = elements.length;
+            const ORBITAL_RADIUS = window.innerWidth <= 768 ? 150 : 200;
+            const ORBITAL_SPEED = 0.0001;
+            const BOTTOM_THRESHOLD = 0.7; // 70% from top
+
+            // State
+            let animationId = null;
+            let startTime = null;
+            let isPaused = false;
+
+            // Initialize
+            init();
+
+            function init() {
+                setupEventListeners();
+                startAnimation();
+                setupElementInteractions();
+                loadSoundCloudAPI();
+            }
+
+            function setupEventListeners() {
+                enterButton.addEventListener('click', handleEnterSite);
+                document.body.addEventListener('click', handleFirstClick, { once: true });
+            }
+
+            function handleEnterSite() {
+                warningPage.style.display = 'none';
+                websiteContent.style.display = 'block';
+                // SoundCloud autoplay is handled through its API
+            }
+
+            function handleFirstClick() {
+                // This will help with SoundCloud's autoplay policy
+                const iframe = document.querySelector('#sc-widget');
+                if (iframe) {
+                    iframe.contentWindow.postMessage({
+                        method: 'play'
+                    }, 'https://w.soundcloud.com');
+                }
+            }
+
+            function loadSoundCloudAPI() {
+                // Load SoundCloud API script
+                const script = document.createElement('script');
+                script.src = 'https://w.soundcloud.com/player/api.js';
+                script.async = true;
+                document.body.appendChild(script);
+            }
+
+            function startAnimation() {
+                startTime = performance.now();
+                animate();
+            }
+
+            function animate(timestamp) {
+                if (!startTime) startTime = timestamp;
+
+                if (!isPaused) {
+                    const elapsed = timestamp - startTime;
+                    const centerX = window.innerWidth / 2;
+                    const centerY = window.innerHeight / 2;
+
+                    elements.forEach((el, index) => {
+                        const angle = elapsed * ORBITAL_SPEED + (index * (2 * Math.PI / ELEMENT_COUNT));
+                        const wobble = Math.sin(elapsed * 0.001 + index * 2) * 40;
+                        const radius = ORBITAL_RADIUS + wobble;
+
+                        const x = centerX + Math.cos(angle) * radius;
+                        const y = centerY + Math.sin(angle) * radius;
+
+                        el.style.left = `${x}px`;
+                        el.style.top = `${y}px`;
+                    });
+                }
+
+                animationId = requestAnimationFrame(animate);
+            }
+
+            function setupElementInteractions() {
+                elements.forEach(el => {
+                    const infoBox = el.querySelector('.info-box');
+
+                    el.addEventListener('mouseenter', () => handleElementActivate(el, infoBox));
+                    el.addEventListener('mouseleave', () => handleElementDeactivate(el, infoBox));
+                    el.addEventListener('focus', () => handleElementActivate(el, infoBox));
+                    el.addEventListener('blur', () => handleElementDeactivate(el, infoBox));
+
+                    // For touch devices
+                    el.addEventListener('touchstart', (e) => {
+                        e.preventDefault();
+                        handleElementActivate(el, infoBox);
+                    }, { passive: false });
+                });
+            }
+
+            function handleElementActivate(el, infoBox) {
+                el.classList.add('active');
+                isPaused = true;
+
+                // Check if element is near bottom
+                const rect = el.getBoundingClientRect();
+                const isNearBottom = rect.top > window.innerHeight * BOTTOM_THRESHOLD;
+
+                if (isNearBottom) {
+                    triggerStormEffect(el);
+                }
+            }
+
+            function triggerStormEffect(el) {
+                el.classList.add('spin');
+
+                setTimeout(() => {
+                    el.classList.remove('spin');
+                    const currentY = parseFloat(el.style.top);
+                    const centerY = window.innerHeight / 2;
+                    el.style.top = `${centerY - (currentY - centerY)}px`; // Invert position
+                }, 1600); // Matches spin duration (0.8s x 2 spins)
+            }
+
+            function handleElementDeactivate(el, infoBox) {
+                setTimeout(() => {
+                    if (!el.matches(':hover') && !infoBox.matches(':hover')) {
+                        el.classList.remove('active');
+                        isPaused = false;
+                    }
+                }, 100);
+            }
+
+            // Clean up animation frame when needed
+            window.addEventListener('beforeunload', () => {
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
