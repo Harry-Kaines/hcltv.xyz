@@ -440,18 +440,17 @@
             </div>
         </div>
 
-        <!-- SoundCloud Player (Optimized Version) -->
         <div class="soundcloud-player">
             <iframe id="sc-widget"
                     width="100%"
-                    height="166"  <!-- Standard height for optimal display -->
-            scrolling="no"
-            frameborder="no"
-            allow="autoplay"
-            loading="lazy"  <!-- Better page performance -->
-            title="SoundCloud Player"  <!-- Accessibility requirement -->
-            src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/harry-kaines-hurricanes/secret-track-for-hurricane-collective&color=%230078d7&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
-        </iframe>
+                    height="166"
+                    scrolling="no"
+                    frameborder="no"
+                    allow="autoplay"
+                    loading="lazy"
+                    title="Hurricane Collective Player"
+                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1834532425&color=%230078d7&auto_play=true&buying=false&sharing=false&download=false">
+            </iframe>
         </div>
     </div>
 
@@ -482,7 +481,6 @@
                 setupEventListeners();
                 startAnimation();
                 setupElementInteractions();
-                loadSoundCloudAPI();
             }
 
             function setupEventListeners() {
@@ -493,25 +491,10 @@
             function handleEnterSite() {
                 warningPage.style.display = 'none';
                 websiteContent.style.display = 'block';
-                // SoundCloud autoplay is handled through its API
             }
 
             function handleFirstClick() {
-                // This will help with SoundCloud's autoplay policy
-                const iframe = document.querySelector('#sc-widget');
-                if (iframe) {
-                    iframe.contentWindow.postMessage({
-                        method: 'play'
-                    }, 'https://w.soundcloud.com');
-                }
-            }
-
-            function loadSoundCloudAPI() {
-                // Load SoundCloud API script
-                const script = document.createElement('script');
-                script.src = 'https://w.soundcloud.com/player/api.js';
-                script.async = true;
-                document.body.appendChild(script);
+                // SoundCloud autoplay handling can go here if needed
             }
 
             function startAnimation() {
