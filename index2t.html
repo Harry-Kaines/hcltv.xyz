@@ -297,7 +297,7 @@
             filter: drop-shadow(0 0 5px var(--storm-accent));
             animation: windDistortion 8s infinite alternate ease-in-out;
             z-index: 20;
-        }
+        }w
 
         @keyframes windDistortion {
             0% {
@@ -387,6 +387,7 @@
         <div class="storm"></div>
 
         <div class="elements">
+
             <!-- Music -->
             <div class="element" tabindex="0" data-content="music">
                 λ
@@ -438,20 +439,14 @@
                     and homelessness outreach through our work and donations.
                 </div>
             </div>
+
         </div>
 
-        <!-- SoundCloud Player (Optimized Version) -->
+        <!-- SoundCloud Player - Updated with your direct track -->
         <div class="soundcloud-player">
-            <iframe id="sc-widget"
-                    width="100%"
-                    height="166"  <!-- Standard height for optimal display -->
-            scrolling="no"
-            frameborder="no"
-            allow="autoplay"
-            loading="lazy"  <!-- Better page performance -->
-            title="SoundCloud Player"  <!-- Accessibility requirement -->
-            src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/harry-kaines-hurricanes/secret-track-for-hurricane-collective&color=%230078d7&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
-        </iframe>
+            <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay"
+                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1834532425&color=%230078d7&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+            </iframe>
         </div>
     </div>
 
@@ -474,6 +469,7 @@
             let animationId = null;
             let startTime = null;
             let isPaused = false;
+            let soundCloudPlayer = null;
 
             // Initialize
             init();
@@ -493,16 +489,17 @@
             function handleEnterSite() {
                 warningPage.style.display = 'none';
                 websiteContent.style.display = 'block';
-                // SoundCloud autoplay is handled through its API
+
+                // Try to play SoundCloud track when entering site
+                if (soundCloudPlayer) {
+                    soundCloudPlayer.play();
+                }
             }
 
             function handleFirstClick() {
-                // This will help with SoundCloud's autoplay policy
-                const iframe = document.querySelector('#sc-widget');
-                if (iframe) {
-                    iframe.contentWindow.postMessage({
-                        method: 'play'
-                    }, 'https://w.soundcloud.com');
+                // This helps with autoplay policies
+                if (soundCloudPlayer) {
+                    soundCloudPlayer.play();
                 }
             }
 
@@ -511,7 +508,23 @@
                 const script = document.createElement('script');
                 script.src = 'https://w.soundcloud.com/player/api.js';
                 script.async = true;
+                script.onload = initializeSoundCloudPlayer;
                 document.body.appendChild(script);
+            }
+
+            function initializeSoundCloudPlayer() {
+                const iframe = document.querySelector('.soundcloud-player iframe');
+                soundCloudPlayer = SC.Widget(iframe);
+
+                soundCloudPlayer.bind(SC.Widget.Events.READY, function () {
+                    // Player is ready
+                    soundCloudPlayer.bind(SC.Widget.Events.PLAY, function () {
+                        // Track started playing
+                    });
+
+                    // Set volume to 50% by default
+                    soundCloudPlayer.setVolume(50);
+                });
             }
 
             function startAnimation() {
