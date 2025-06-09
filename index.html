@@ -372,6 +372,8 @@
         <h1>⚠️ WARNING ⚠️</h1>
         <p>
             This website contains flashing lights, rapid animations, and intense visual effects that may trigger seizures for people with photosensitive epilepsy. Viewer discretion is advised.
+            The music is overwhelming and loud, please be prepared to turn your desktop audio down. 
+            Welcome to the storm. 
         </p>
         <button id="enterButton">ENTER SITE</button>
     </div>
@@ -432,8 +434,7 @@
             <div class="element" tabindex="0" data-content="gratitude">
                 ϕ
                 <div class="info-box">
-                    With deep thanks to <strong>Perth City Farm</strong> and <strong>St. Bartholomew's House</strong>
-                    for their support on this journey.
+                    With deep thanks to the services and support on this journey.
                     <br><br>We are committed to giving back — supporting environmental sustainability
                     and homelessness outreach through our work and donations.
                 </div>
@@ -441,148 +442,151 @@
         </div>
 
         <div class="soundcloud-player">
-            <iframe id="sc-widget"
-                    width="100%"
-                    height="166"
+            <iframe width="100%"
+                    height="200"
                     scrolling="no"
-                    frameborder="no"
+                    style="max-width: 600px; border: none;"
                     allow="autoplay"
                     loading="lazy"
-                    title="Hurricane Collective Player"
-                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1834532425&color=%230078d7&auto_play=true&buying=false&sharing=false&download=false">
+                    title="Secret Track for Hurricane Collective"
+                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2109742905&color=%232e322e&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
             </iframe>
+            <div style="font-size: 10px; color: #cccccc; line-break: anywhere; word-break: normal; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif; font-weight: 100;">
+                <a href="https://soundcloud.com/harry-kaines-hurricanes" title="Harry Kaines - Hurricanes" target="_blank" style="color: #cccccc; text-decoration: none;">Harry Kaines - Hurricanes</a> ·
+                <a href="https://soundcloud.com/harry-kaines-hurricanes/secret-track-for-hurricane-collective" title="Secret Track for hurricane Collective" target="_blank" style="color: #cccccc; text-decoration: none;">Secret Track for hurricane Collective</a>
+            </div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // DOM Elements
-            const warningPage = document.getElementById('warningPage');
-            const enterButton = document.getElementById('enterButton');
-            const websiteContent = document.getElementById('websiteContent');
-            const bgVideo = document.getElementById('bg-video');
-            const elements = document.querySelectorAll('.element');
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elements
+    const warningPage = document.getElementById('warningPage');
+    const enterButton = document.getElementById('enterButton');
+    const websiteContent = document.getElementById('websiteContent');
+    const bgVideo = document.getElementById('bg-video');
+    const elements = document.querySelectorAll('.element');
 
-            // Constants
-            const ELEMENT_COUNT = elements.length;
-            const ORBITAL_RADIUS = window.innerWidth <= 768 ? 150 : 200;
-            const ORBITAL_SPEED = 0.0001;
-            const BOTTOM_THRESHOLD = 0.7; // 70% from top
+    // Constants
+    const ELEMENT_COUNT = elements.length;
+    const ORBITAL_RADIUS = window.innerWidth <= 768 ? 150 : 200;
+    const ORBITAL_SPEED = 0.0001;
+    const BOTTOM_THRESHOLD = 0.7; // 70% from top
 
-            // State
-            let animationId = null;
-            let startTime = null;
-            let isPaused = false;
+    // State
+    let animationId = null;
+    let startTime = null;
+    let isPaused = false;
 
-            // Initialize
-            init();
+    // Initialize
+    init();
 
-            function init() {
-                setupEventListeners();
-                startAnimation();
-                setupElementInteractions();
-            }
+    function init() {
+        setupEventListeners();
+        startAnimation();
+        setupElementInteractions();
+    }
 
-            function setupEventListeners() {
-                enterButton.addEventListener('click', handleEnterSite);
-                document.body.addEventListener('click', handleFirstClick, { once: true });
-            }
+    function setupEventListeners() {
+        enterButton.addEventListener('click', handleEnterSite);
+        document.body.addEventListener('click', handleFirstClick, { once: true });
+    }
 
-            function handleEnterSite() {
-                warningPage.style.display = 'none';
-                websiteContent.style.display = 'block';
-            }
+    function handleEnterSite() {
+        warningPage.style.display = 'none';
+        websiteContent.style.display = 'block';
+    }
 
-            function handleFirstClick() {
-                // SoundCloud autoplay handling can go here if needed
-            }
+    function handleFirstClick() {
+        // SoundCloud autoplay handling can go here if needed
+    }
 
-            function startAnimation() {
-                startTime = performance.now();
-                animate();
-            }
+    function startAnimation() {
+        startTime = performance.now();
+        animate();
+    }
 
-            function animate(timestamp) {
-                if (!startTime) startTime = timestamp;
+    function animate(timestamp) {
+        if (!startTime) startTime = timestamp;
 
-                if (!isPaused) {
-                    const elapsed = timestamp - startTime;
-                    const centerX = window.innerWidth / 2;
-                    const centerY = window.innerHeight / 2;
+        if (!isPaused) {
+            const elapsed = timestamp - startTime;
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
 
-                    elements.forEach((el, index) => {
-                        const angle = elapsed * ORBITAL_SPEED + (index * (2 * Math.PI / ELEMENT_COUNT));
-                        const wobble = Math.sin(elapsed * 0.001 + index * 2) * 40;
-                        const radius = ORBITAL_RADIUS + wobble;
+            elements.forEach((el, index) => {
+                const angle = elapsed * ORBITAL_SPEED + (index * (2 * Math.PI / ELEMENT_COUNT));
+                const wobble = Math.sin(elapsed * 0.001 + index * 2) * 40;
+                const radius = ORBITAL_RADIUS + wobble;
 
-                        const x = centerX + Math.cos(angle) * radius;
-                        const y = centerY + Math.sin(angle) * radius;
+                const x = centerX + Math.cos(angle) * radius;
+                const y = centerY + Math.sin(angle) * radius;
 
-                        el.style.left = `${x}px`;
-                        el.style.top = `${y}px`;
-                    });
-                }
-
-                animationId = requestAnimationFrame(animate);
-            }
-
-            function setupElementInteractions() {
-                elements.forEach(el => {
-                    const infoBox = el.querySelector('.info-box');
-
-                    el.addEventListener('mouseenter', () => handleElementActivate(el, infoBox));
-                    el.addEventListener('mouseleave', () => handleElementDeactivate(el, infoBox));
-                    el.addEventListener('focus', () => handleElementActivate(el, infoBox));
-                    el.addEventListener('blur', () => handleElementDeactivate(el, infoBox));
-
-                    // For touch devices
-                    el.addEventListener('touchstart', (e) => {
-                        e.preventDefault();
-                        handleElementActivate(el, infoBox);
-                    }, { passive: false });
-                });
-            }
-
-            function handleElementActivate(el, infoBox) {
-                el.classList.add('active');
-                isPaused = true;
-
-                // Check if element is near bottom
-                const rect = el.getBoundingClientRect();
-                const isNearBottom = rect.top > window.innerHeight * BOTTOM_THRESHOLD;
-
-                if (isNearBottom) {
-                    triggerStormEffect(el);
-                }
-            }
-
-            function triggerStormEffect(el) {
-                el.classList.add('spin');
-
-                setTimeout(() => {
-                    el.classList.remove('spin');
-                    const currentY = parseFloat(el.style.top);
-                    const centerY = window.innerHeight / 2;
-                    el.style.top = `${centerY - (currentY - centerY)}px`; // Invert position
-                }, 1600); // Matches spin duration (0.8s x 2 spins)
-            }
-
-            function handleElementDeactivate(el, infoBox) {
-                setTimeout(() => {
-                    if (!el.matches(':hover') && !infoBox.matches(':hover')) {
-                        el.classList.remove('active');
-                        isPaused = false;
-                    }
-                }, 100);
-            }
-
-            // Clean up animation frame when needed
-            window.addEventListener('beforeunload', () => {
-                if (animationId) {
-                    cancelAnimationFrame(animationId);
-                }
+                el.style.left = `${x}px`;
+                el.style.top = `${y}px`;
             });
+        }
+
+        animationId = requestAnimationFrame(animate);
+    }
+
+    function setupElementInteractions() {
+        elements.forEach(el => {
+            const infoBox = el.querySelector('.info-box');
+
+            el.addEventListener('mouseenter', () => handleElementActivate(el, infoBox));
+            el.addEventListener('mouseleave', () => handleElementDeactivate(el, infoBox));
+            el.addEventListener('focus', () => handleElementActivate(el, infoBox));
+            el.addEventListener('blur', () => handleElementDeactivate(el, infoBox));
+
+            // For touch devices
+            el.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                handleElementActivate(el, infoBox);
+            }, { passive: false });
         });
+    }
+
+    function handleElementActivate(el, infoBox) {
+        el.classList.add('active');
+        isPaused = true;
+
+        // Check if element is near bottom
+        const rect = el.getBoundingClientRect();
+        const isNearBottom = rect.top > window.innerHeight * BOTTOM_THRESHOLD;
+
+        if (isNearBottom) {
+            triggerStormEffect(el);
+        }
+    }
+
+    function triggerStormEffect(el) {
+        el.classList.add('spin');
+
+        setTimeout(() => {
+            el.classList.remove('spin');
+            const currentY = parseFloat(el.style.top);
+            const centerY = window.innerHeight / 2;
+            el.style.top = `${centerY - (currentY - centerY)}px`; // Invert position
+        }, 1600); // Matches spin duration (0.8s x 2 spins)
+    }
+
+    function handleElementDeactivate(el, infoBox) {
+        setTimeout(() => {
+            if (!el.matches(':hover') && !infoBox.matches(':hover')) {
+                el.classList.remove('active');
+                isPaused = false;
+            }
+        }, 100);
+    }
+
+    // Clean up animation frame when needed
+    window.addEventListener('beforeunload', () => {
+        if (animationId) {
+            cancelAnimationFrame(animationId);
+        }
+    });
+});
     </script>
 </body>
 </html>
